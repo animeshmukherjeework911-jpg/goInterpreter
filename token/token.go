@@ -51,7 +51,7 @@ const (
 	LBRACE    = "{"
 	RBRACE    = "}"
 
-	// Keyowrds
+	// Keywords
 	FUNCTION = "FUNCTION"
 	LET      = "LET"
 	TRUE     = "TRUE"

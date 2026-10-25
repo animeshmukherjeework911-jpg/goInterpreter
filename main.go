@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"monkey/repl"
+	"github.com/animeshmukherjeework911-jpg/goInterpreter/repl"
 	"os"
 	"os/user"
 )
@@ -15,7 +15,7 @@ func main() {
 	}
 
 	fmt.Printf("Hello %s! This is the Monkey programming language!\n", user.Username)
-	fmt.Printf("Feel free to type in cmmands\n")
+	fmt.Printf("Feel free to type in commands\n")
 	repl.Start(os.Stdin, os.Stdout)
 
 }

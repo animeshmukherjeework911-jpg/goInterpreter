@@ -3,9 +3,9 @@ package repl
 import (
 	"bufio"
 	"fmt"
+	"github.com/animeshmukherjeework911-jpg/goInterpreter/lexer"
+	"github.com/animeshmukherjeework911-jpg/goInterpreter/token"
 	"io"
-	"monkey/lexer"
-	"monkey/token"
 )
 
 const PROMPT = ">> "
@@ -14,7 +14,7 @@ func Start(in io.Reader, out io.Writer) {
 	scanner := bufio.NewScanner(in)
 
 	for {
-		fmt.Fprintf(out, PROMPT)
+		fmt.Fprint(out, PROMPT)
 		scanned := scanner.Scan()
 		if !scanned {
 			return

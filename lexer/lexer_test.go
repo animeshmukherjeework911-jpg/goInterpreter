@@ -1,7 +1,7 @@
 package lexer
 
 import (
-	"monkey/token"
+	"github.com/animeshmukherjeework911-jpg/goInterpreter/token"
 	"testing"
 )
 
@@ -134,6 +134,23 @@ if (5 < 10) {
 	return input, expected
 }
 
+func getInputsForIllegalToken() (string, []expectedToken) {
+	input := `@`
+	expected := []expectedToken{
+		{token.ILLEGAL, "@"},
+		{token.EOF, ""},
+	}
+	return input, expected
+}
+
+func getInputsForEmptyInput() (string, []expectedToken) {
+	input := ``
+	expected := []expectedToken{
+		{token.EOF, ""},
+	}
+	return input, expected
+}
+
 func TestNextToken(t *testing.T) {
 	cases := []struct {
 		name    string
@@ -142,6 +159,8 @@ func TestNextToken(t *testing.T) {
 		{"simple symbols", getInputsForSimpleToken},
 		{"let statements and function literal", getInputsForLetStatements},
 		{"operators and keywords", getInputsForOperatorsAndKeywords},
+		{"illegal token", getInputsForIllegalToken},
+		{"empty input", getInputsForEmptyInput},
 	}
 
 	for _, c := range cases {
