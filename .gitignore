@@ -7,3 +7,4 @@
 *.out
 monkey
 /goInterpreter
+__debug_bin*
