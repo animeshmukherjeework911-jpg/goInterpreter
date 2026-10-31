@@ -63,9 +63,27 @@ func (p *Parser) parseStatement() ast.Statement {
 		}
 		return nil
 
+	case token.RETURN:
+		if stmt := p.parseReturnStatement(); stmt != nil {
+			return stmt
+		}
+		return nil
+
 	default:
 		return nil
 	}
+}
+
+func (p *Parser) parseReturnStatement() *ast.ReturnStatement {
+	stmt := &ast.ReturnStatement{Token: p.curToken}
+	p.nextToken()
+
+	// TODO: We are skipping the expression until we encounter a semicolon
+	for !p.curTokenIs(token.SEMICOLON) && !p.curTokenIs(token.EOF) {
+		p.nextToken()
+	}
+
+	return stmt
 }
 
 func (p *Parser) parseLetStatement() *ast.LetStatement {
