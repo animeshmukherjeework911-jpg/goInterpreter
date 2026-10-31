@@ -56,6 +56,37 @@ func TestLetStatementWithoutSemicolon(t *testing.T) {
 	testLetStatement(t, program.Statements[0], "x")
 }
 
+func TestInvalidLetStatements(t *testing.T) {
+	tests := []struct {
+		name          string
+		input         string
+		expectedError string
+	}{
+		{"missing identifier", "let = 5;", "expected next token to be IDENT, got = instead"},
+		{"missing assign", "let x 5;", "expected next token to be =, got INT instead"},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			p := New(lexer.New(tt.input))
+			program := p.ParseProgram()
+
+			if len(program.Statements) != 0 {
+				t.Fatalf("program.Statements does not contain 0 statements, got=%d", len(program.Statements))
+			}
+
+			errors := p.Errors()
+			if len(errors) != 1 {
+				t.Fatalf("expected 1 parser error, got=%d: %q", len(errors), errors)
+			}
+
+			if errors[0] != tt.expectedError {
+				t.Errorf("wrong error. expected=%q, got=%q", tt.expectedError, errors[0])
+			}
+		})
+	}
+}
+
 func testLetStatement(t *testing.T, s ast.Statement, name string) bool {
 	if s.TokenLiteral() != "let" {
 		t.Errorf("s.TokenLiteral not 'let'. got=%q", s.TokenLiteral())
